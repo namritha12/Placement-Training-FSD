@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Calculator</title>
+    <style>
+        .calculator{
+            background-color: rgb(240, 226, 158);
+            border: 4px solid black;
+            border-radius: 10px;
+            padding: 19px;
+            width: 250px;
+            text-align: center;
+        }
+        #screen{
+            width: 250px;
+            height: 40px;
+            text-align: right;
+            font-size: 20px;
+        }
+        button{
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            margin: 2px;
+        }
+        .operator{
+            background-color: rgb(145, 211, 244);
+        }
+        .equal{
+            background-color: rgb(233, 156, 223);
+        }
+        .clear{
+            background-color: rgb(202, 239, 192);
+        }
+    </style>
+</head>
+<body>
+<div class="calculator">
+    <h2>🧮 My Calculator</h2>
+    <input type="text" id="screen" readonly>
+    <br><br>
+    <button onclick="addValue('1')">1</button>
+    <button onclick="addValue('2')">2</button>
+    <button onclick="addValue('3')">3</button>
+    <button class="operator" onclick="addValue('+')">+</button>
+    <br>
+    <button onclick="addValue('4')">4</button>
+    <button onclick="addValue('5')">5</button>
+    <button onclick="addValue('6')">6</button>
+    <button class="operator" onclick="addValue('-')">-</button>
+    <br>
+    <button onclick="addValue('7')">7</button>
+    <button onclick="addValue('8')">8</button>
+    <button onclick="addValue('9')">9</button>
+    <button class="operator" onclick="addValue('*')">*</button>
+    <br>
+    <button onclick="addValue('0')">0</button>
+    <button class="clear" onclick="clearScreen()">C</button>
+    <button class="equal" onclick="calculate()">=</button>
+    <button class="operator" onclick="addValue('/')">/</button>
+</div>
+<script>
+function addValue(value)
+{
+    document.getElementById("screen").value += value;
+}
+function clearScreen()
+{
+    document.getElementById("screen").value = "";
+}
+function calculate()
+{
+    document.getElementById("screen").value =
+    eval(document.getElementById("screen").value);
+}
+</script>
+</body>
+</html>

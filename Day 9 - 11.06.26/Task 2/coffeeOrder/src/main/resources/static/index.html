@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Namri's Coffee Corner</title>
+
+</head>
+<body>
+<div class="container">
+    <h1> Kanam Cafe</h1>
+    <div class="subtitle"> Fresh Coffee • Happy Customers </div>
+    <input type="text" id="customerName"  placeholder="Enter Customer Name">
+    <input type="text" id="coffeeName"  placeholder="Enter Coffee Name">
+    <button class="order-btn" onclick="orderCoffee()">Place Coffee Order</button>
+    <p id="message"></p>
+    <h3>Customer Orders</h3>
+    <button class="show-btn" onclick="loadOrders()">Show Orders </button>
+    <ul id="orderList"></ul>
+</div>
+<script>
+    async function orderCoffee() {
+        const order = {
+            customerName:document.getElementById("customerName").value,
+            coffeeName: document.getElementById("coffeeName").value
+        };
+        const response = await fetch(
+            "http://localhost:8080/coffee",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(order)
+            }
+        );
+        const result = await response.json();
+        document.getElementById("message").innerText ="🎉 Order #" + result.id +" placed successfully for " + result.customerName;
+    }
+    async function loadOrders() {
+        const response =await fetch("http://localhost:8080/coffee");
+        const orders =await response.json();
+        const list =document.getElementById("orderList");
+        list.innerHTML = "";
+        orders.forEach(order => {
+            const li = document.createElement("li");
+            li.innerText =" Order #" + order.id +" | " + order.customerName + " ordered " + order.coffeeName;
+            list.appendChild(li);
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heroes</title>
+</head>
+<body>
+<form id="heroForm">
+    Name:<input id="name">
+    Power:<input id="power">
+    <button type="submit">Add</button>
+</form>
+     <h2>Heroes</h2>
+<ul id="heroList"></ul>
+<script>
+    const form=document.getElementById("heroForm");
+    const list=document.getElementById("heroList");
+    //Load heroes on page open
+    fetch("http://localhost:8080/heroes")
+    .then(res=>res.json())
+    .then(data=>data.forEach(h=>addHero(h)));
+
+    form.addEventListener("submit",e=>{e.preventDefault();
+        const hero={
+        name:document.getElementById("name").value,
+        power:document.getElementById("power").value
+    };
+        fetch("http://localhost:8080/heroes",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(hero)
+        })
+            .then(res=>res.json())
+            .then(h=>addHero(h));
+            form.reset()
+    });
+    function addHero(hero){
+        const li=document.createElement("li");
+        li.textContent=hero.name+"-"+hero.power;
+        list.appendChild(li);
+    }
+
+</script>
+
+
+</body>
+</html>

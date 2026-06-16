@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:Arial, sans-serif;
+    }
+    body{
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#667eea,#764ba2);
+    }
+
+    .calculator{
+        background:white;
+        padding:30px;
+        border-radius:15px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.2);
+        width:400px;
+        text-align:center;
+    }
+
+    h1{
+        color:#333;
+        margin-bottom:20px;
+    }
+
+    input{
+        width:100%;
+        padding:12px;
+        margin:10px 0;
+        border:2px solid #ddd;
+        border-radius:8px;
+        font-size:16px;
+    }
+    .buttons{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
+        margin-top:15px;
+    }
+
+    button{
+        padding:12px;
+        border:none;
+        border-radius:8px;
+        background:#667eea;
+        color:white;
+        font-size:16px;
+    }
+
+    button:hover{
+        background:#5563d6;
+        transform:scale(1.05);
+    }
+
+    #result{
+        margin-top:20px;
+        min-height:40px;
+    }
+</style>
+
+<div class="calculator">
+    <h1>Calculator</h1>
+
+    <input type="number" id="n1" placeholder="First Number">
+    <input type="number" id="n2" placeholder="Second Number">
+
+    <div class="buttons">
+        <button onclick="add()">+</button>
+        <button onclick="sub()">−</button>
+        <button onclick="logten()">log</button>
+        <button onclick="sinvalue()">sin</button>
+        <button onclick="cosvalue()">cos</button>
+        <button onclick="expo()">exp</button>
+        <button onclick="spiral()">Spiral</button>
+    </div>
+
+    <h1 id="result">Result</h1>
+</div>
+
+<script>
+    async function add() {
+        let a = document.getElementById("n1").value;
+        let b = document.getElementById("n2").value;
+
+        const response = await fetch(`http://localhost:9090/calc/add/${a}/${b}`);
+        const text = await response.text();
+
+        document.getElementById("result").innerText = text;
+    }
+
+    async function sub() {
+        let a = document.getElementById("n1").value;
+        let b = document.getElementById("n2").value;
+
+        const response = await fetch(`http://localhost:9090/calc/sub/${a}/${b}`);
+        const text = await response.text();
+
+        document.getElementById("result").innerText = text;
+    }
+
+    async function logten() {
+        let a = document.getElementById("n1").value;
+
+        const response = await fetch(`http://localhost:9090/calc/logten/${a}`);
+        const text = await response.text();
+
+        document.getElementById("result").innerText = text;
+    }
+
+    async function sinvalue() {
+        let a = document.getElementById("n1").value;
+
+        const response = await fetch(`http://localhost:9090/calc/sinvalue/${a}`);
+        const text = await response.text();
+
+        document.getElementById("result").innerText = text;
+    }
+
+    async function cosvalue() {
+        let a = document.getElementById("n1").value;
+
+        const response = await fetch(`http://localhost:9090/calc/cosvalue/${a}`);
+        const text = await response.text();
+
+        document.getElementById("result").innerText = text;
+    }
+
+    async function expo() {
+        let a = document.getElementById("n1").value;
+
+        const response = await fetch(`http://localhost:9090/calc/expo/${a}`);
+        const text = await response.text();
+
+        document.getElementById("result").innerText = text;
+    }
+
+    async function spiral() {
+        const response = await fetch("http://localhost:9090/calc/spiral");
+        const text = await response.text();
+
+        document.getElementById("result").innerText = text;
+    }
+
+</script>
+
+</body>
+</html>
